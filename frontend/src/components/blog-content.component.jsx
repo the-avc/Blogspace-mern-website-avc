@@ -11,8 +11,8 @@ const List = ({ style, items }) => {
     )
 }
 const Img = ({ url, caption }) => {
-    return(
-        <img src={url} alt={caption} className="w-full h-auto text-center"/>
+    return (
+        <img src={url} alt={caption} className="w-full h-auto text-center" />
     )
 }
 const BlogContent = ({ block }) => {
@@ -24,8 +24,8 @@ const BlogContent = ({ block }) => {
     if (type == "list") {
         return <List style={data.style} items={data.items} />
     }
-    if(type=="image"){
-        return <Img url={data.url} caption={data.caption}/>
+    if (type == "image") {
+        return <Img url={data.url} caption={data.caption} />
     }
 
     return (

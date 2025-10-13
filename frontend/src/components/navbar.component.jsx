@@ -21,15 +21,14 @@ const Navbar = () => {
         setUserNavPanel(currentVal => !currentVal);
     }
     const handleSearch = (e) => {
-        let query = e.target.value;
-        // console.log(e);
-        if (e.keyCode == 13 && query.length) {
+        let query = e.target.value.trim();
+        if (e.key === 'Enter' && query.length) {
             navigate(`/search/${query}`)
         }
     }
 
     const handleOutsideClick = (e) => {
-        if (userNavPanelRef.current && !userNavPanelRef.current.contains(e.target) && 
+        if (userNavPanelRef.current && !userNavPanelRef.current.contains(e.target) &&
             !userButtonRef.current.contains(e.target)) {
             setUserNavPanel(false);
         }
@@ -102,7 +101,7 @@ const Navbar = () => {
                                 </div>
                             )}
                         </div>
-                    ) :(
+                    ) : (
                         <>
                             <Link className="btn-dark py-2" to="/signin">Sign In</Link>
                             <Link className="btn-light py-2 hidden md:block" to="/signup">Sign Up</Link>

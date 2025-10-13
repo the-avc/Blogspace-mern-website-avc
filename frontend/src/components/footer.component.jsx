@@ -1,8 +1,3 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import darkLogo from "../imgs/logo-dark.png";
-import lightLogo from "../imgs/logo-light.png";
-import {ThemeContext } from '../App';
 import FullLogo from '../imgs/full-logo-light.png';
 
 const Footer = () => {

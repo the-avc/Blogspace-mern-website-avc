@@ -2,6 +2,7 @@ import express from 'express';
 import { 
     getLatestBlogs, 
     getTrendingBlogs, 
+    searchBlogs,
     createBlog, 
     getBlog, 
     getUserWrittenBlogs, 
@@ -15,6 +16,7 @@ const router = express.Router();
 // Public blog routes
 router.post('/latest-blogs', getLatestBlogs);
 router.get('/trending-blogs', getTrendingBlogs);
+router.post('/search-blogs', searchBlogs);
 router.post('/get-blog', getBlog);
 
 // Protected blog routes

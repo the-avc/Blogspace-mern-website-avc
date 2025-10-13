@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const  InPageNavigation = ({ routes, defaultHide = [], defaultActiveIdx = 0, children }) => {
+const InPageNavigation = ({ routes, defaultHide = [], defaultActiveIdx = 0, children }) => {
     let activeTablineRef = useRef();
     let activeTabRef = useRef();
     let [inPageNavIdx, setInPageNavIdx] = useState(defaultActiveIdx);
@@ -36,7 +36,7 @@ const  InPageNavigation = ({ routes, defaultHide = [], defaultActiveIdx = 0, chi
 
                 <hr ref={activeTablineRef} className="absolute bottom-0 duration-250" />
             </div>
-            {Array.isArray(children)? children[inPageNavIdx]:children}
+            {Array.isArray(children) ? children[inPageNavIdx] : children}
 
         </>
     )

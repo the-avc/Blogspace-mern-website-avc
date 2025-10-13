@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { BlogContext } from '../pages/blog.page.jsx'
 import CommentField from './comment-field.component.jsx';
 import axios from 'axios';
-import { comment } from 'postcss';
 import NoDataMessage from './nodata.component.jsx';
 import AnimationWrapper from '../common/page-animation.jsx';
 import CommentCard from './comment-card.component.jsx';
@@ -62,13 +61,13 @@ const CommentsContainer = () => {
                 commentsArr && commentsArr.length ?
                     commentsArr.map((comment, i) => {
                         return <AnimationWrapper key={i}>
-                            <CommentCard index={i} leftVal={comment.childrenLevel*4} commentData={comment} />
+                            <CommentCard index={i} leftVal={comment.childrenLevel * 4} commentData={comment} />
                             {/* {console.log(comment)} */}
                         </AnimationWrapper>
                     })
                     : <div className='mt-3'>
                         <NoDataMessage message="No comments yet" />
-                        </div>
+                    </div>
             }
 
             {

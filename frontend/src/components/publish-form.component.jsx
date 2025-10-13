@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const PublishForm = () => {
     const charLimit = 200;
     const tagLimit = 5;
-    
+
     const navigate = useNavigate();
     let { blog, setEditorState, blog: { title, banner, des, tags, content }, setBlog } = useContext(EditorContext);
 

@@ -33,6 +33,37 @@ export const getTrendingBlogs = async (req, res) => {
         });
 };
 
+export const searchBlogs = async (req, res) => {
+    const { query, page = 1, limit = 5 } = req.body;
+    
+    if (!query || !query.trim()) {
+        return res.status(400).json({ error: "Search query is required" });
+    }
+
+    const searchRegex = new RegExp(query, 'i');
+    const skip = (page - 1) * limit;
+
+    try {
+        const blogs = await Blog.find({ 
+            draft: false,
+            $or: [
+                { title: searchRegex },
+                { des: searchRegex },
+                { tags: { $in: [searchRegex] } }
+            ]
+        })
+        .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
+        .sort({ "publishedAt": -1 })
+        .select("blog_id title des banner activity tags publishedAt -_id")
+        .skip(skip)
+        .limit(limit);
+
+        return res.status(200).json({ blogs });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+};
+
 export const createBlog = async (req, res) => {
     const authorId = req.user;
     let { title, des, banner, tags, content, id } = req.body;
