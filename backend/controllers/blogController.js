@@ -35,28 +35,67 @@ export const getTrendingBlogs = async (req, res) => {
 
 export const searchBlogs = async (req, res) => {
     const { query, page = 1, limit = 5 } = req.body;
-    
+
     if (!query || !query.trim()) {
         return res.status(400).json({ error: "Search query is required" });
     }
 
-    const searchRegex = new RegExp(query, 'i');
+    const searchRegex = new RegExp(query.trim(), 'i');
     const skip = (page - 1) * limit;
 
     try {
-        const blogs = await Blog.find({ 
-            draft: false,
-            $or: [
-                { title: searchRegex },
-                { des: searchRegex },
-                { tags: { $in: [searchRegex] } }
-            ]
-        })
-        .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
-        .sort({ "publishedAt": -1 })
-        .select("blog_id title des banner activity tags publishedAt -_id")
-        .skip(skip)
-        .limit(limit);
+        // Use aggregation pipeline for efficient search
+        const blogs = await Blog.aggregate([
+            {
+                $match: { draft: false }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "author",
+                    foreignField: "_id",
+                    as: "author"
+                }
+            },
+            {
+                $unwind: "$author"
+            },
+            {
+                $match: {
+                    $or: [
+                        { title: searchRegex },
+                        { des: searchRegex },
+                        { tags: { $in: [searchRegex] } },
+                        { "author.personal_info.username": searchRegex },
+                        { "author.personal_info.fullname": searchRegex }
+                    ]
+                }
+            },
+            {
+                $project: {
+                    blog_id: 1,
+                    title: 1,
+                    des: 1,
+                    banner: 1,
+                    activity: 1,
+                    tags: 1,
+                    publishedAt: 1,
+                    "author.personal_info.profile_img": 1,
+                    "author.personal_info.username": 1,
+                    "author.personal_info.fullname": 1,
+                    _id: 0
+                }
+            },
+            {
+                $sort: { publishedAt: -1 }
+            },
+            {
+                $skip: skip
+            },
+            {
+                $limit: limit
+            }
+        ]);
 
         return res.status(200).json({ blogs });
     } catch (err) {
@@ -85,11 +124,11 @@ export const createBlog = async (req, res) => {
         const blog = new Blog({
             title, des, banner, content, tags, author: authorId, blog_id,
         });
-        
+
         blog.save().then(blog => {
-            User.findOneAndUpdate({ _id: authorId }, { 
-                $inc: { "account_info.total_posts": 1 }, 
-                $push: { "blogs": blog._id } 
+            User.findOneAndUpdate({ _id: authorId }, {
+                $inc: { "account_info.total_posts": 1 },
+                $push: { "blogs": blog._id }
             })
                 .then(user => {
                     return res.status(200).json({ id: blog.blog_id });
@@ -98,16 +137,16 @@ export const createBlog = async (req, res) => {
                     return res.status(500).json({ error: "failed to update postNum" });
                 });
         })
-        .catch(err => {
-            return res.status(500).json({ error: err.message });
-        });
+            .catch(err => {
+                return res.status(500).json({ error: err.message });
+            });
     }
 };
 
 export const getBlog = async (req, res) => {
     const { blog_id, mode } = req.body;
     const incrementVal = mode != 'edit' ? 1 : 0;
-    
+
     Blog.findOneAndUpdate({ blog_id }, { $inc: { "activity.total_reads": incrementVal } })
         .populate("author", "personal_info.fullname personal_info.username personal_info.profile_img")
         .select("title des content banner activity publishedAt blog_id tags")

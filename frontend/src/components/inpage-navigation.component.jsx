@@ -19,7 +19,7 @@ const InPageNavigation = ({ routes, defaultHide = [], defaultActiveIdx = 0, chil
 
     return (
         <>
-            <div className="relative mb-8 bg-white border-b border-grey flex flex-nowrap overflow-x-auto">
+            <div className="relative mb-1 bg-white border-b border-grey flex flex-nowrap overflow-x-auto">
                 {routes.map((route, i) => {
                     return (
                         <button

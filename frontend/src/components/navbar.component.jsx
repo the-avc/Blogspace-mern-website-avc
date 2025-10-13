@@ -22,8 +22,13 @@ const Navbar = () => {
     }
     const handleSearch = (e) => {
         let query = e.target.value.trim();
-        if (e.key === 'Enter' && query.length) {
-            navigate(`/search/${query}`)
+        if (e.key === 'Enter') {
+            if (query.length) {
+                navigate(`/search/${query}`);
+            } else {
+                // Navigate to home when search is empty
+                navigate('/');
+            }
         }
     }
 
