@@ -131,7 +131,6 @@ const HomePage = () => {
                 </div>
 
             </section>
-            <Footer />
         </AnimationWrapper>
     )
 
