@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AnimationWrapper from "../common/page-animation.jsx";
 import { Toaster, toast } from "react-hot-toast";
 import { EditorContext } from "../pages/editor.pages.jsx";
-import defaultBanner from "../imgs/blog banner.png";
+import defaultBanner from "../assets/blog banner.png";
 import Tag from "./tags.component.jsx";
 import axios from "axios";
 import { UserContext } from "../App.jsx";
@@ -109,7 +109,7 @@ const PublishForm = () => {
                     <i className="fi fi-br-cross"></i>
                 </button>
 
-                <div className="max-w-[550px] center">
+                <div className="max-w-[550px] block mx-auto">
                     <p className="text-dark-grey mb-1">PREVIEW</p>
 
                     <div className="w-full aspect-video rounded-lg

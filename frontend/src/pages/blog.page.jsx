@@ -80,7 +80,7 @@ const BlogPage = () => {
                 <BlogContext.Provider value={{ blog, setBlog, liked, setLiked, commentWrapper, setCommentWrapper, totalParentCommentsLoaded, setTotalParentCommentsLoaded }}>
 
                     <CommentsContainer/>
-                    <div className="max-w-[900px] center py-10 max-lg:px-5[vw]">
+                    <div className="max-w-[900px] block mx-auto py-10 max-lg:px-5[vw]">
                         <img src={banner} alt={title}
                             className="aspect-video" />
                         <div className="mt-12 mx-3">

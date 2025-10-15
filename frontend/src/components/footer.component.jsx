@@ -1,4 +1,4 @@
-import FullLogo from '../imgs/full-logo-light.png';
+import FullLogo from '../assets/full-logo-light.png';
 
 const Footer = () => {
     // let [theme, setTheme] = useContext(ThemeContext);

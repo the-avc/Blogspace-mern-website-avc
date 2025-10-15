@@ -2,7 +2,7 @@ import { useContext, useRef } from 'react';
 import AnimationWrapper from "../common/page-animation"
 import { Link } from "react-router-dom";
 import InputBox from "../components/input.component";
-import googleicon from "../imgs/google.png"
+import googleicon from "../assets/google.png"
 import { Toaster, toast } from 'react-hot-toast';
 import axios from 'axios';
 import { storeInSession } from '../common/session';
@@ -93,7 +93,7 @@ const UserAuthForm = ({ type }) => {
                             icon="fi-rr-key"
                         />
                         <button
-                            className="btn-dark center mt-14"
+                            className="btn-darkblock mx-auto mt-14"
                             type="submit"
                             onClick={handleSubmit}>
                             {type.replace("-", " ")}
@@ -103,7 +103,7 @@ const UserAuthForm = ({ type }) => {
                             <p>or</p>
                             <hr className="w-1/2 border-black" />
                         </div>
-                        {/* <button className="btn-dark flex gap-3 items-center justify-center center">Continue with Google
+                        {/* <button className="btn-dark flex gap-3 items-center justify-center block mx-auto">Continue with Google
                             <img src={googleicon} className="w-5" />
                         </button> */}
 
