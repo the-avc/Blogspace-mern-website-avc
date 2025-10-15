@@ -23,10 +23,10 @@ const UserNavigationPanel = () => {
                 <Link to={`/user/${username}`} className="flex gap-2 link pl-8 py-4">
                     Profile
                 </Link>
-                
-                <Link to={`/settings/${username}`} className="flex gap-2 link pl-8 py-4">
+
+                {/* <Link to={`/settings/${username}`} className="flex gap-2 link pl-8 py-4">
                     Settings
-                </Link>
+                </Link> */}
                 <button className="text-left p-4 hover:bg-grey w-full pl-8 py-4"
                     onClick={signOutUser}
                 >

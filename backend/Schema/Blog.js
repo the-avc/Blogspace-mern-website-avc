@@ -22,7 +22,7 @@ const blogSchema = mongoose.Schema({
     },
     content: {
         type: [],
-        // required: true
+        required: true
     },
     tags: {
         type: [String],

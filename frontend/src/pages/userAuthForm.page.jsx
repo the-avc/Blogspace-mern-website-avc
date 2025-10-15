@@ -2,7 +2,7 @@ import { useContext, useRef } from 'react';
 import AnimationWrapper from "../common/page-animation"
 import { Link } from "react-router-dom";
 import InputBox from "../components/input.component";
-import googleicon from "../imgs/google.png"
+import googleicon from "../assets/google.png"
 import { Toaster, toast } from 'react-hot-toast';
 import axios from 'axios';
 import { storeInSession } from '../common/session';
@@ -67,7 +67,7 @@ const UserAuthForm = ({ type }) => {
 
                     <Toaster />
                     <form id="formElement" className="w-[80%] max-w-[400px]">
-                        <h1 className="text-4xl font-gelasio capitalize text-center mb-24">
+                        <h1 className="text-4xl font-gelasio capitalize text-center mb-12">
                             {type == "sign-in" ? "Welcome Back" : "Join Us Today"}
                         </h1>
                         {
@@ -93,26 +93,26 @@ const UserAuthForm = ({ type }) => {
                             icon="fi-rr-key"
                         />
                         <button
-                            className="btn-dark center mt-14"
+                            className="btn-darkblock mx-auto mt-14"
                             type="submit"
                             onClick={handleSubmit}>
                             {type.replace("-", " ")}
                         </button>
-                        <div className="relative w-full flex items-center gap-2 my-10 opacity-10 uppercase text-black font-bold">
+                        <div className="relative w-full flex items-center gap-2 my-6 opacity-10 uppercase text-black font-bold">
                             <hr className="w-1/2 border-black" />
                             <p>or</p>
                             <hr className="w-1/2 border-black" />
                         </div>
-                        <button className="btn-dark flex gap-3 items-center justify-center center">Continue with Google
+                        {/* <button className="btn-dark flex gap-3 items-center justify-center block mx-auto">Continue with Google
                             <img src={googleicon} className="w-5" />
-                        </button>
+                        </button> */}
 
                         {
                             type == "sign-in" ?
                                 <p className="mt-6 text-dark-grey text-xl text-center">Dont't have an account ?
                                     <Link to="/signup" className="underline text-black text-xl ml-1"> Sign Up
                                     </Link> </p>
-                                : <p className="mt-6 text-dark-grey text-xl text-center">Already have an account ?
+                                : <p className="mt-5 text-dark-grey text-xl text-center mb-5">Already have an account ?
                                     <Link to="/signin" className="underline text-black text-xl ml-1"> Sign In
                                     </Link> </p>
                         }

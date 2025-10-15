@@ -10,8 +10,10 @@ import axios from 'axios';
 const CommentCard = ({ index, leftVal, commentData }) => {
     // console.log("leftval",leftVal);
     let { commented_by: { personal_info: { username: commented_by_username, fullname, profile_img } }, commentedAt, comment, _id } = commentData;
+
     let { userAuth: { access_token, username } } = useContext(UserContext);
     let{blog, blog:{comments,comments:{results:commentsArr}, author:{personal_info:{username:blog_author}}}, setBlog} = useContext(BlogContext);
+
     const [isReply, setReply] = useState(false);
     const handleReplyClick = () => {
         if (!access_token) {

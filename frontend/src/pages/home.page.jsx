@@ -51,8 +51,43 @@ const HomePage = () => {
         <AnimationWrapper>
             <section className="h-cover flex justify-center gap-10">
                 <div className="w-full">
+
                     <InPageNavigation routes={["home", "trendings"]} defaultHide={["trendings"]}>
                         <>
+                            {blogs && blogs.length > 0 && (
+                                <div className="flex justify-center items-center gap-4 mt-4 mb-5 bg-white max-sm:gap-2">
+                                    <button
+                                        onClick={() => handlePagination(currentPg - 1)}
+                                        disabled={currentPg == 1}
+                                        className="flex justify-center gap-1 items-center px-4 py-2 bg-grey-200 hover:bg-gray-300 hover:text-[#232526] rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed max-sm:px-2">
+                                        <i className="fi fi-sr-angle-left text-black"></i><span>Prev</span>
+                                    </button>
+
+                                    {[...Array(totalPgs)].map((_, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => handlePagination(i + 1)}
+                                            className={`px-4 py-2 rounded-full shadow-md ${currentPg === i + 1
+                                                ? "bg-black text-white"
+                                                : "bg-grey-200 hover:bg-gray-300 hover:text-[#232526]"
+                                                }`}
+                                        >
+                                            {i + 1}
+                                        </button>
+                                    ))}
+
+
+                                    <button
+                                        onClick={() => handlePagination(currentPg + 1)}
+                                        disabled={currentPg == totalPgs}
+                                        className="btn-light flex justify-center gap-1 items-center px-4 py-2 bg-grey-200 hover:bg-gray-300 hover:text-[#232526] rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed max-sm:px-2">
+                                        <span> Next</span>
+                                        <i className="fi fi-sr-angle-right"></i>
+                                    </button>
+
+                                </div>
+
+                            )}
                             {
                                 blogs == null ? (
                                     <Loader />
@@ -66,6 +101,7 @@ const HomePage = () => {
                             }
 
                         </>
+
                         {
                             trendingBlogs == null ? <Loader /> :
                                 trendingBlogs.map((blog, i) => {
@@ -76,37 +112,7 @@ const HomePage = () => {
                         }
                     </InPageNavigation>
                     {/* pagination UI */}
-                    <div className="flex justify-center items-center gap-4 mt-8 bg-white max-sm:gap-2">
-                        <button
-                            onClick={() => handlePagination(currentPg - 1)}
-                            disabled={currentPg == 1}
-                            className="flex justify-center gap-1 items-center px-4 py-2 bg-grey-200 hover:bg-gray-300 hover:text-[#232526] rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed max-sm:px-2">
-                            <i className="fi fi-sr-angle-left text-black"></i><span>Prev</span>
-                        </button>
 
-                        {[...Array(totalPgs)].map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => handlePagination(i + 1)}
-                                className={`px-4 py-2 rounded-full shadow-md ${currentPg === i + 1
-                                    ? "bg-black text-white"
-                                    : "bg-grey-200 hover:bg-gray-300 hover:text-[#232526]"
-                                    }`}
-                            >
-                                {i + 1}
-                            </button>
-                        ))}
-
-
-                        <button
-                            onClick={() => handlePagination(currentPg + 1)}
-                            disabled={currentPg == totalPgs}
-                            className="btn-light flex justify-center gap-1 items-center px-4 py-2 bg-grey-200 hover:bg-gray-300 hover:text-[#232526] rounded-full shadow-md disabled:opacity-50 disabled:cursor-not-allowed max-sm:px-2">
-                            <span> Next</span>
-                            <i className="fi fi-sr-angle-right"></i>
-                        </button>
-
-                    </div>
 
                 </div>
 
@@ -125,7 +131,6 @@ const HomePage = () => {
                 </div>
 
             </section>
-            <Footer />
         </AnimationWrapper>
     )
 
