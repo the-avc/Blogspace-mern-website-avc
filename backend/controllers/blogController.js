@@ -151,12 +151,17 @@ export const getBlog = async (req, res) => {
         .populate("author", "personal_info.fullname personal_info.username personal_info.profile_img")
         .select("title des content banner activity publishedAt blog_id tags")
         .then(blog => {
-            User.findOneAndUpdate({ "personal_info.username": blog.author.personal_info.username }, {
-                $inc: { "account_info.total_reads": incrementVal }
-            })
-                .catch(err => {
-                    return res.status(500).json({ error: err.message });
+            if (!blog) {
+                return res.status(404).json({ error: 'Blog not found' });
+            }
+            if (blog.author && blog.author.personal_info && blog.author.personal_info.username) {
+                User.findOneAndUpdate({ "personal_info.username": blog.author.personal_info.username }, {
+                    $inc: { "account_info.total_reads": incrementVal }
+                }).catch(err => {
+                    // Log but don't fail the request if user update fails
+                    console.error('Failed to update user reads for', blog.author.personal_info.username, err.message);
                 });
+            }
             return res.status(200).json({ blog });
         })
         .catch(err => {

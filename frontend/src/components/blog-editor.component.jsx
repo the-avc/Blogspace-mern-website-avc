@@ -11,10 +11,16 @@ import { Toaster, toast } from 'react-hot-toast';
 import { ThemeContext } from '../App.jsx';
 const BlogEditor = () => {
     let { theme } = useContext(ThemeContext);
-    let { blog, blog: { title, banner, content, tags, des }, setBlog, textEditor, setTextEditor, setEditorState } = useContext(EditorContext);
+    let { blog, setBlog, textEditor, setTextEditor, setEditorState } = useContext(EditorContext);
+    // safe defaults
+    const title = blog?.title || '';
+    const banner = blog?.banner || '';
+    const content = blog?.content || [];
+    const tags = blog?.tags || [];
+    const des = blog?.des || '';
     // const editorRef = useRef(null);
-    console.log(blog);
-    console.log(title);
+    // console.log('blog', blog);
+    // console.log('title', title);
     useEffect(() => {
         setTextEditor(new EditorJS({
             holder: "textEditor",
@@ -23,13 +29,12 @@ const BlogEditor = () => {
             data: Array.isArray(content) ? content[0] : content
         }));
     }, []);
-    // console.log(content[0]==undefined? "undefin hai":"chal toh rha hai");
     const handleTitleKeyDown = (e) => {
         if (e.keyCode == 13) e.preventDefault();
     }
     const handleBannerUpload = (e) => {
         let img = e.target.files[0];
-        console.log(img);
+        // console.log(img);
     }
     const handleTitleChange = (e) => {
         let input = e.target;

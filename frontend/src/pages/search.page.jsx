@@ -21,7 +21,7 @@ const SearchPage = () => {
             setBlogs([]);
             return;
         }
-        console.log("Searching for blogs with query:", query)
+        // console.log("Searching for blogs with query:", query)
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { query, page })
             .then(({ data: { blogs } }) => {
                 setBlogs((prev) => {
@@ -42,7 +42,7 @@ const SearchPage = () => {
             setUsers([]);
             return;
         }
-        console.log("Searching for users with query:", query);
+        // console.log("Searching for users with query:", query);
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-users", { query })
             .then(({ data: { users } }) => {
                 setUsers(users);
@@ -86,7 +86,7 @@ const SearchPage = () => {
     return (
         <section className="h-cover flex justify-center gap-10">
             <div className="w-full">
-                <InPageNavigation routes={[`Search Results for "${query}"`, "Accounts Matched"]} defaultHide={["Accounts Matched"]}>
+                <InPageNavigation routes={["Search Results", "Accounts Matched"]} defaultHide={["Accounts Matched"]}>
                     <>
                         {
                             blogs == null ? (

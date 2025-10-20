@@ -27,6 +27,7 @@ const BlogInteraction = () => {
         })
     }
   }, [_id]);
+  // console.log(blog._id);
 
   const handleLike = () => {
     if (access_token) {
@@ -77,7 +78,7 @@ const BlogInteraction = () => {
           <div className="flex gap-6 items-center">
             {
               (username == author_username && username != undefined) ?
-                <Link to={`/editor/${_id}`} className="text-white text-xl underline btn-dark">Edit</Link>
+                <Link to={`/editor/${blog.blog_id}`} className="text-white text-xl underline btn-dark">Edit</Link>
                 : ""
             }
           </div>
