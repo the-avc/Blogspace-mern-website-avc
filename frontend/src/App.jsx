@@ -53,10 +53,10 @@ const App = () => {
                         <Route path="blogs/:blog_id" element={<BlogPage />} />
                         <Route path="terms" element={<TermsAndConditions />} />
                         <Route path="privacy" element={<PrivacyPolicy />} />
-
                         <Route path="*" element={<PageNotFound />} />
                     </Route>
                 </Routes>
+                <Footer />
             </UserContext.Provider>
         </ThemeContext.Provider>
     )

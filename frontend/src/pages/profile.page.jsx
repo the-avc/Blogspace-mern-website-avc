@@ -101,7 +101,6 @@ const ProfilePage = () => {
         </section>
         : <PageNotFound />
     }
-      <Footer />
     </>
   )
 }

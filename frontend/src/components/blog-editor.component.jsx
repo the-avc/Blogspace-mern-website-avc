@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import darkLogo from "../imgs/logo-dark.png";
-import lightLogo from "../imgs/logo-light.png";
-import defaultBannerDark from "../imgs/blog banner dark.png";
-import defaultBannerLight from "../imgs/blog banner light.png";
+import darkLogo from "../assets/logo-dark.png";
+import lightLogo from "../assets/logo-light.png";
+import defaultBannerDark from "../assets/blog banner dark.png";
+import defaultBannerLight from "../assets/blog banner light.png";
 import { useContext, useEffect, useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import { tools } from './tools.component.jsx';

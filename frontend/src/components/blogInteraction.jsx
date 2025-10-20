@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { BlogContext } from '../pages/blog.page.jsx'
 import { Link } from 'react-router-dom'
-import BlogContent from './blog-content.component.jsx'
 import { UserContext } from '../App.jsx'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
@@ -80,9 +79,7 @@ const BlogInteraction = () => {
               (username == author_username && username != undefined) ?
                 <Link to={`/editor/${_id}`} className="text-white text-xl underline btn-dark">Edit</Link>
                 : ""
-
             }
-
           </div>
 
         </div>

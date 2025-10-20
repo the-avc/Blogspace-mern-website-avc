@@ -1,9 +1,4 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import darkLogo from "../imgs/logo-dark.png";
-import lightLogo from "../imgs/logo-light.png";
-import {ThemeContext } from '../App';
-import FullLogo from '../imgs/full-logo-light.png';
+import FullLogo from '../assets/full-logo-light.png';
 
 const Footer = () => {
     // let [theme, setTheme] = useContext(ThemeContext);
@@ -23,9 +18,7 @@ const Footer = () => {
                     <h3 className="font-semibold text-lg">Quick Links</h3>
                     <ul className="space-y-2 text-sm">
                         <li><a href="/about" className="hover:text-blue-400">About Us</a></li>
-                        <li><a href="/documentation" className="hover:text-blue-400">Documentation</a></li>
                         <li><a href="/contact" className="hover:text-blue-400">Contact</a></li>
-                        <li><a href="/terms" className="hover:text-blue-400">Terms & Conditions</a></li>
                         <li><a href="/privacy" className="hover:text-blue-400">Privacy Policy</a></li>
                     </ul>
                 </div>
@@ -35,13 +28,13 @@ const Footer = () => {
                     <h3 className="font-semibold text-lg">Follow Us</h3>
                     <div className="flex space-x-4 mt-4">
                         <a href="https://instagram.com" target="_blank" className="hover:text-blue-400">
-                        <i className="fi fi-brands-instagram text-2xl"></i>
+                            <i className="fi fi-brands-instagram text-2xl"></i>
                         </a>
                         <a href="https://linkedin.com" target="_blank" className="hover:text-blue-400">
-                        <i className="fi fi-brands-linkedin text-2xl"></i>
+                            <i className="fi fi-brands-linkedin text-2xl"></i>
                         </a>
                         <a href="https://github.com/the-avc" target="_blank" className="hover:text-blue-400">
-                        <i className="fi fi-brands-github text-2xl"></i>
+                            <i className="fi fi-brands-github text-2xl"></i>
                         </a>
                     </div>
                 </div>

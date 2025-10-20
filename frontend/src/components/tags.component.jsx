@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { EditorContext } from "../pages/editor.pages";
 
 const Tag = ({ tag }) => {
-    let { blog, blog: { tags },setBlog } = useContext(EditorContext);
+    let { blog, blog: { tags }, setBlog } = useContext(EditorContext);
     const handleTagDeletion = () => {
         tags = tags.filter(t => t != tag);
-        setBlog({...blog,tags});
+        setBlog({ ...blog, tags });
 
     }
 

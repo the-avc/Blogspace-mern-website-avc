@@ -1,6 +1,6 @@
-import pageNotFoundImg from "../imgs/404.png";
-import pageNotFoundImgDark from "../imgs/404-dark.png";
-import pageNotFoundImgLight from "../imgs/404-light.png";
+import pageNotFoundImg from "../assets/404.png";
+import pageNotFoundImgDark from "../assets/404-dark.png";
+import pageNotFoundImgLight from "../assets/404-light.png";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../App";
