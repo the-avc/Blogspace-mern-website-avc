@@ -93,7 +93,7 @@ const UserAuthForm = ({ type }) => {
                             icon="fi-rr-key"
                         />
                         <button
-                            className="btn-darkblock mx-auto mt-14"
+                            className="btn-dark block mx-auto mt-14"
                             type="submit"
                             onClick={handleSubmit}>
                             {type.replace("-", " ")}
