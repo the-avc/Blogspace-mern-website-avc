@@ -44,22 +44,14 @@ const BlogPage = () => {
     const fetchBlog = () => {
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog", { blog_id })
             .then(async ({ data: { blog } }) => {
-
-               
-                blog.comments = await fetchComments({ blog_id:blog._id, setParentCommentCountFun: setTotalParentCommentsLoaded });
-
-              
+                blog.comments = await fetchComments({ blog_id: blog._id, setParentCommentCountFun: setTotalParentCommentsLoaded });
                 setBlog(blog);
                 // console.log(blog);
-
-
             })
             .catch(err => {
                 console.log(err);
             })
     }
-
-
 
     useEffect(() => {
         resetStates();
@@ -73,13 +65,12 @@ const BlogPage = () => {
         setTotalParentCommentsLoaded(0);
     }
 
-
     return (
         <AnimationWrapper>
             {
                 <BlogContext.Provider value={{ blog, setBlog, liked, setLiked, commentWrapper, setCommentWrapper, totalParentCommentsLoaded, setTotalParentCommentsLoaded }}>
 
-                    <CommentsContainer/>
+                    <CommentsContainer />
                     <div className="max-w-[900px] block mx-auto py-10 max-lg:px-5[vw]">
                         <img src={banner} alt={title}
                             className="aspect-video" />
@@ -90,9 +81,9 @@ const BlogPage = () => {
                                 <div className="flex gap-5 items-start">
                                     <img src={profile_img} alt={author_username}
                                         className="w-12 h-12 rounded-full" />
-                                    <p>{fullname} <br />@
-                                        <Link to={`/user/${author_username}`}
-                                        > {author_username}</Link>
+                                    <p> <Link to={`/user/${author_username}`}
+                                    >{fullname} <br />@
+                                        {author_username}</Link>
                                     </p>
                                 </div>
 

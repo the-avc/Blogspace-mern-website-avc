@@ -22,12 +22,16 @@ const BlogEditor = () => {
     // console.log('blog', blog);
     // console.log('title', title);
     useEffect(() => {
-        setTextEditor(new EditorJS({
+        const editor = new EditorJS({
             holder: "textEditor",
             placeholder: "write story",
             tools: tools,
             data: Array.isArray(content) ? content[0] : content
-        }));
+        });
+        setTextEditor(editor);
+        return () => {
+            editor.destroy();
+        };
     }, []);
     const handleTitleKeyDown = (e) => {
         if (e.keyCode == 13) e.preventDefault();

@@ -13,7 +13,17 @@ const PublishForm = () => {
     const tagLimit = 5;
 
     const navigate = useNavigate();
-    let { blog, setEditorState, blog: { title, banner, des, tags, content }, setBlog } = useContext(EditorContext);
+    // Safely read from EditorContext and provide defaults to avoid runtime errors
+    const editorCtx = useContext(EditorContext) || {};
+    const { blog = {}, setEditorState, setBlog } = editorCtx;
+    const {
+        title = "",
+        banner = "",
+        des = "",
+        tags = [],
+        content = [],
+        blog_id
+    } = blog || {};
 
     let { userAuth: { access_token } } = useContext(UserContext);
 
@@ -72,8 +82,11 @@ const PublishForm = () => {
 
         e.target.classList.add('disable');
 
+        // If editing an existing blog, include its identifier so backend updates instead of creating
         let blogObj = {
-            title, banner, des, content, tags
+            title, banner, des, content, tags,
+            // backend createBlog expects "id" to keep existing blog_id; also include blog_id for clarity
+            ...(blog_id ? { id: blog_id, blog_id } : {})
         }
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-blog",
             blogObj, {
@@ -81,20 +94,18 @@ const PublishForm = () => {
                 'Authorization': `Bearer ${access_token}`
             }
         })
-            .then(() => {
+            .then((res) => {
                 e.target.classList.remove("disable");
                 toast.dismiss(loadingToast);
                 toast.success("Published Successfully");
-
-                setTimeout(() => {
-                    navigate("/");
-                }, 500);
-
+                //navigate to home
+                navigate('/');
             })
-            .catch(({ res }) => {
+            .catch((error) => {
                 e.target.classList.remove("disable");
                 toast.dismiss(loadingToast);
-                return toast.error(res.data.error);
+                const message = error?.response?.data?.error || "Failed to publish blog";
+                return toast.error(message);
 
             })
 

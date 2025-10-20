@@ -8,9 +8,15 @@ const AboutUser = ({ bio, social_links, joinedAt }) => {
             text-dark-grey">
                 {
                     Object.keys(social_links).map((key) => {
-                        let link = social_links[key];
-                        return link ? <Link to={link} target="blank"><i className={"fi fi-brands-" + key + " text-2xl hover:text-black"}></i></Link>
-                            : ""
+                        const link = social_links[key];
+                        return link ? (
+                            <Link key={key}
+                                  to={link}
+                                  target="_blank"
+                                  rel="noopener noreferrer">
+                                <i className={"fi fi-brands-" + key + " text-2xl hover:text-black"}></i>
+                            </Link>
+                        ) : null;
                     })
                 }
             </div>

@@ -26,16 +26,16 @@ const App = () => {
         userInSession ? setUserAuth(JSON.parse(userInSession)) : setUserAuth({ access_token: null })
 
 
-        if(themeInSession){
-            setTheme(()=>{
+        if (themeInSession) {
+            setTheme(() => {
                 document.body.setAttribute('data-theme', themeInSession);
                 return themeInSession;
-            })  
+            })
         }
-        else{
-             document.body.setAttribute('data-theme',theme)
+        else {
+            document.body.setAttribute('data-theme', theme)
         }
-       
+
     }, []);
 
     return (
