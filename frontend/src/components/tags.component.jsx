@@ -1,12 +1,17 @@
 import { useContext } from "react";
-import { EditorContext } from "../pages/editor.pages";
+import { EditorContext } from "../pages/editor.pages.jsx";
 
 const Tag = ({ tag }) => {
-    let { blog, blog: { tags }, setBlog } = useContext(EditorContext);
+    const ctx = useContext(EditorContext) || {};
+    const blog = ctx.blog || {};
+    const tags = Array.isArray(blog.tags) ? blog.tags : [];
+    const setBlog = ctx.setBlog;
     const handleTagDeletion = () => {
-        tags = tags.filter(t => t != tag);
-        setBlog({ ...blog, tags });
-
+        if (!setBlog) return;
+        setBlog(prev => {
+            const currentTags = Array.isArray(prev?.tags) ? prev.tags : [];
+            return { ...prev, tags: currentTags.filter(t => t !== tag) };
+        });
     }
 
     return (
