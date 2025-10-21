@@ -6,6 +6,7 @@ import {
     createBlog, 
     getBlog, 
     getUserWrittenBlogs, 
+    getUserBlogsPublic,
     deleteBlog 
 } from '../controllers/blogController.js';
 import { verifyMiddleware } from '../middleware/auth.js';
@@ -18,6 +19,7 @@ router.post('/latest-blogs', getLatestBlogs);
 router.get('/trending-blogs', getTrendingBlogs);
 router.post('/search-blogs', searchBlogs);
 router.post('/get-blog', getBlog);
+router.post('/user-blogs', getUserBlogsPublic);
 
 // Protected blog routes
 router.post('/create-blog', verifyMiddleware, validateBlogData, createBlog);

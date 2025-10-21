@@ -7,7 +7,10 @@ import InPageNavigation from "../components/inpage-navigation.component";
 import BlogPost from "../components/blog-post.component";
 import PageNotFound from "./404.page";
 import ManageBlogs from "./Manage-blogs.page";
-import Footer from "../components/footer.component";
+import Loader from "../components/loader.component";
+import NoDataMessage from "../components/nodata.component";
+import AnimationWrapper from "../common/page-animation";
+
 const profileDataStruct = {
   personal_info: {
     fullname: "",
@@ -33,7 +36,7 @@ const ProfilePage = () => {
     joinedAt } = profile;
 
   let [blogs, setBlogs] = useState(null);
-  let { userAuth: { username } } = useContext(UserContext);
+  let { userAuth: { username, access_token } } = useContext(UserContext);
   const fetchUserProfile = () => {
     axios.post(import.meta.env.VITE_BACKEND_URL + "/get-profile", {
       username: profileId,
@@ -47,20 +50,29 @@ const ProfilePage = () => {
       })
   }
 
-  // const getBlogs = ({user_id})=>{
-  //   user_id = user_id==undefined? BlogEditor.user_id : user_id;
-
-  //   axios.post(import.meta.env.VITE_BACKEND_URL + "/search-blogs", {
-  //author:user_id,})
-  // }
+  const fetchUserBlogsPublic = () => {
+    axios.post(import.meta.env.VITE_BACKEND_URL + "/user-blogs", {
+      username: profileId
+    })
+      .then(({ data }) => {
+        setBlogs(data.blogs || []);
+      })
+      .catch(err => {
+        console.log("Error fetching user's blogs:", err);
+        setBlogs([]);
+      });
+  };
   useEffect(() => {
     resetStates();
     fetchUserProfile();
+    if (profileId !== username) {
+      fetchUserBlogsPublic();
+    }
   }, [profileId])
 
   const resetStates = () => {
     setProfile(profileDataStruct);
-    // setBlogs(null)
+    setBlogs(null)
 
   }
 
@@ -94,8 +106,27 @@ const ProfilePage = () => {
               routes={["Blogs Published", "About User"]}
               defaultHide={["About User"]}>
 
+              {
+                profileId === username ? (
+                  <ManageBlogs />
+                ) : (
+                  <>
+                    {blogs === null ? (
+                      <Loader />
+                    ) : blogs.length ? (
+                      blogs.map((blog, i) => (
+                        <AnimationWrapper key={i}>
+                          <BlogPost content={blog} author={blog.author.personal_info} />
+                        </AnimationWrapper>
+                      ))
+                    ) : (
+                      <NoDataMessage message={"No Blogs Published"} />
+                    )}
+                  </>
+                )
+              }
+
             </InPageNavigation>
-            <ManageBlogs />
 
           </div>
         </section>

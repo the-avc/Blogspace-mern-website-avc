@@ -1,12 +1,19 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 import { UserContext } from '../App';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import axios from 'axios';
 import { BlogContext } from '../pages/blog.page';
 
 const CommentField = ({ action, index = undefined, replyingTo = undefined, setReply }) => {
-    let { blog, blog: { _id, author: { _id: blog_author }, comments, activity, activity: { total_likes, total_parent_comments, total_comments } }, setBlog, totalParentCommentsLoaded, setTotalParentCommentsLoaded } = useContext(BlogContext);
+    let ctx = useContext(BlogContext);
+    let blog = ctx?.blog || {};
+    let _id = blog?._id;
+    let blog_author = blog?.author?._id;
+    let comments = blog?.comments;
+    let activity = blog?.activity || {};
+    let { total_likes = 0, total_parent_comments = 0, total_comments = 0 } = activity;
+    let { setBlog, totalParentCommentsLoaded, setTotalParentCommentsLoaded } = ctx || {};
     
     let { userAuth: { access_token, username, fullname, profile_img } } = useContext(UserContext);
     const [comment, setComment] = useState("");
@@ -14,6 +21,9 @@ const CommentField = ({ action, index = undefined, replyingTo = undefined, setRe
     const commentsArr = comments ? comments.results : [];
     // console.log(commentsArr);
     const handleComment = () => {
+        if (!_id || !blog_author) {
+            return toast.error("Blog not ready yet");
+        }
         if (!access_token) {
             return toast.error("Login to comment");
         }
@@ -75,7 +85,6 @@ const CommentField = ({ action, index = undefined, replyingTo = undefined, setRe
 
     return (
         <>
-            <Toaster />
             <textarea value={comment} placeholder='leave a comment...'
                 onChange={(e) => setComment(e.target.value)}
                 className='input-box pl-5 placeholder.text-dark-grey resize-none h-[150px] overflow-auto'></textarea>

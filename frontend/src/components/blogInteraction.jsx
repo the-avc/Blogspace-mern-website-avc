@@ -6,8 +6,11 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 
 const BlogInteraction = () => {
-  let { blog, blog: { title,
-    _id, activity: { total_likes, total_comments }, activity, author: { personal_info: { username: author_username } } }, setBlog, liked, setLiked, commentWrapper, setCommentWrapper } = useContext(BlogContext);
+  let { blog, setBlog, liked, setLiked, commentWrapper, setCommentWrapper } = useContext(BlogContext);
+  const _id = blog?._id;
+  const activity = blog?.activity || { total_likes: 0, total_comments: 0 };
+  let { total_likes = 0, total_comments = 0 } = activity;
+  const author_username = blog?.author?.personal_info?.username;
   let { userAuth: { username, access_token } } = useContext(UserContext);
 
   useEffect(() => {
@@ -30,6 +33,7 @@ const BlogInteraction = () => {
   // console.log(blog._id);
 
   const handleLike = () => {
+    if (!_id) return;
     if (access_token) {
       setLiked(prevVal => !prevVal);
       !liked ? total_likes++ : total_likes--;

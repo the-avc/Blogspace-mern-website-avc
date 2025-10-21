@@ -102,8 +102,8 @@ const PublishForm = () => {
                 navigate('/');
             })
             .catch((error) => {
-                e.target.classList.remove("disable");
                 toast.dismiss(loadingToast);
+                e.target.classList.remove("disable");
                 const message = error?.response?.data?.error || "Failed to publish blog";
                 return toast.error(message);
 

@@ -37,6 +37,7 @@ const CommentsContainer = () => {
     // console.log(commentsArr);
 
     const loadMoreComments = async () => {
+        if (!_id) return;
         let newCommentsArr = await fetchComments({ skip: totalParentCommentsLoaded, blog_id: _id, setParentCommentCountFun: setTotalParentCommentsLoaded, comment_array: commentsArr });
         setBlog({ ...blog, comments: newCommentsArr });
     }

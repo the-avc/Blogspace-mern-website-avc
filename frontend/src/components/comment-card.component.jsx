@@ -43,7 +43,6 @@ const CommentCard = ({ index, leftVal, commentData }) => {
 
     return (
         <>
-            <Toaster />
             <div className="w-full" style={{ paddingLeft: `${leftVal * 10}px` }}>
                 <div className="my-5 py-6 rounded-lg border border-grey">
                     <div className="flex gap-3 items-center mb-8">

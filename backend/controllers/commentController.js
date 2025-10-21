@@ -21,7 +21,8 @@ export const addComment = async (req, res) => {
             {
                 $push: { "comments": commentFile._id },
                 $inc: { "activity.total_comments": 1, "activity.total_parent_comments": replying_to ? 0 : 1 }
-            }
+            },
+            { timestamps: false }
         ).then((blog) => {
             console.log("Comment added to blog");
         });
@@ -94,11 +95,17 @@ export const deleteComment = async (req, res) => {
                         return res.status(500).json({ error: err.message });
                     });
 
-                Blog.findOneAndUpdate({ _id: comment.blog_id }, { 
-                    $pull: { comments: _id }, 
-                    $inc: { "activity.total_comments": -1 }, 
-                    "activity.total_parent_comments": comment.parent ? 0 : -1 
-                })
+                Blog.findOneAndUpdate(
+                    { _id: comment.blog_id },
+                    { 
+                        $pull: { comments: _id }, 
+                        $inc: { 
+                            "activity.total_comments": -1,
+                            "activity.total_parent_comments": comment.parent ? 0 : -1 
+                        }
+                    },
+                    { timestamps: false }
+                )
                     .then(() => {
                         console.log("Comment removed from blog");
                     })

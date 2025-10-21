@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { UserContext } from '../App';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import Loader from '../components/loader.component';
 import NoDataMessage from '../components/nodata.component';
 import AnimationWrapper from '../common/page-animation';
@@ -81,7 +81,6 @@ const ManageBlogs = () => {
 
     return (
         <>
-            <Toaster />
             {blogs === null ? (
                 <>
                 <Loader />

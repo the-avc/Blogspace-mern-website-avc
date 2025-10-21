@@ -10,6 +10,8 @@ import ProfilePage from "./pages/profile.page.jsx";
 import SearchPage from "./pages/search.page.jsx";
 import BlogPage from "./pages/blog.page.jsx";
 import Footer from "./components/footer.component.jsx";
+import { Toaster } from "react-hot-toast";
+import ScrollToTop from "./common/scroll-to-top.jsx";
 import TermsAndConditions from "./pages/termsAndCondn.jsx";
 import PrivacyPolicy from "./pages/privacy.jsx";
 
@@ -41,6 +43,10 @@ const App = () => {
     return (
         <ThemeContext.Provider value={{ theme, setTheme }}>
             <UserContext.Provider value={{ userAuth, setUserAuth }}>
+                <ScrollToTop />
+                <Toaster
+                    position="top-center"
+                />
                 <Routes>
                     <Route path="/editor" element={<Editor />} />
                     <Route path="/editor/:blog_id" element={<Editor />} />

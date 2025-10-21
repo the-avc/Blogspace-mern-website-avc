@@ -9,7 +9,7 @@ export const getLatestBlogs = async (req, res) => {
 
     Blog.find({ draft: false })
         .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
-        .sort({ "publishedAt": -1 })
+        .sort({ updatedAt: -1, publishedAt: -1 })
         .select("blog_id title des banner activity tags publishedAt updatedAt -_id")
         .then(blogs => {
             return res.status(200).json({ blogs });
@@ -22,7 +22,7 @@ export const getLatestBlogs = async (req, res) => {
 export const getTrendingBlogs = async (req, res) => {
     Blog.find({ draft: false })
         .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
-        .sort({ "activity.total_read": -1, "activity.total_likes": -1, "publishedAt": -1 })
+        .sort({ "activity.total_reads": -1, "activity.total_likes": -1, updatedAt: -1, publishedAt: -1 })
         .select("blog_id title publishedAt updatedAt -_id")
         .limit(5)
         .then(blogs => {
@@ -80,6 +80,7 @@ export const searchBlogs = async (req, res) => {
                     activity: 1,
                     tags: 1,
                     publishedAt: 1,
+                    updatedAt: 1,
                     "author.personal_info.profile_img": 1,
                     "author.personal_info.username": 1,
                     "author.personal_info.fullname": 1,
@@ -87,7 +88,7 @@ export const searchBlogs = async (req, res) => {
                 }
             },
             {
-                $sort: { publishedAt: -1 }
+                $sort: { updatedAt: -1, publishedAt: -1 }
             },
             {
                 $skip: skip
@@ -147,9 +148,13 @@ export const getBlog = async (req, res) => {
     const { blog_id, mode } = req.body;
     const incrementVal = mode != 'edit' ? 1 : 0;
 
-    Blog.findOneAndUpdate({ blog_id }, { $inc: { "activity.total_reads": incrementVal } })
+    Blog.findOneAndUpdate(
+        { blog_id },
+        { $inc: { "activity.total_reads": incrementVal } },
+        { timestamps: false }
+    )
         .populate("author", "personal_info.fullname personal_info.username personal_info.profile_img")
-        .select("title des content banner activity publishedAt updatedAt blog_id tags")
+        .select("title des content banner activity publishedAt updatedAt blog_id tags author")
         .then(blog => {
             if (!blog) {
                 return res.status(404).json({ error: 'Blog not found' });
@@ -174,7 +179,7 @@ export const getUserWrittenBlogs = async (req, res) => {
     const { page } = req.body;
 
     Blog.find({ author: user_id })
-        .sort({ "publishedAt": -1 })
+        .sort({ updatedAt: -1, publishedAt: -1 })
         .select("blog_id title des banner activity publishedAt updatedAt -_id")
         .then(blogs => {
             return res.status(200).json({ blogs });
@@ -182,6 +187,37 @@ export const getUserWrittenBlogs = async (req, res) => {
         .catch(err => {
             return res.status(500).json({ error: err.message });
         });
+};
+
+// Public: Get published blogs for a given username (profile view)
+export const getUserBlogsPublic = async (req, res) => {
+    try {
+        const { username, page = 1, limit = 5 } = req.body;
+
+        if (!username || !username.trim()) {
+            return res.status(400).json({ error: "Username is required" });
+        }
+
+        const user = await User.findOne({ "personal_info.username": username.trim() })
+            .select("_id");
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const skip = (page - 1) * limit;
+
+        const blogs = await Blog.find({ author: user._id, draft: false })
+            .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
+            .sort({ updatedAt: -1, publishedAt: -1 })
+            .select("blog_id title des banner activity tags publishedAt updatedAt -_id")
+            .skip(skip)
+            .limit(limit);
+
+        return res.status(200).json({ blogs });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
 };
 
 export const deleteBlog = async (req, res) => {

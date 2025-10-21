@@ -6,9 +6,11 @@ export const likeBlog = async (req, res) => {
     const { _id, liked } = req.body;
     const incrementVal = liked ? -1 : 1;
     
-    Blog.findOneAndUpdate({ _id }, {
-        $inc: { "activity.total_likes": incrementVal }
-    })
+    Blog.findOneAndUpdate(
+        { _id },
+        { $inc: { "activity.total_likes": incrementVal } },
+        { timestamps: false }
+    )
         .then(blog => {
             if (!liked) {
                 const like = new Notification({
@@ -30,6 +32,9 @@ export const likeBlog = async (req, res) => {
                         return res.status(500).json({ error: err.message });
                     });
             }
+        })
+        .catch(err => {
+            return res.status(500).json({ error: err.message });
         });
 };
 

@@ -22,6 +22,12 @@ const UserAuthForm = ({ type }) => {
                 storeInSession("user", JSON.stringify(data));
                 // console.log(sessionStorage);
                 setUserAuth(data);
+                if (serverRoute == "/signin") {
+                    var msg = "Signed in successfully";
+                } else {
+                    var msg = "Account created successfully";
+                }
+                toast.success(msg);
             })
             .catch(({ response }) => {
                 toast.error(response.data.error)

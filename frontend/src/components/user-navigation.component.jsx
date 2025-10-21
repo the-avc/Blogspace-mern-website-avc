@@ -3,12 +3,14 @@ import AnimationWrapper from "../common/page-animation";
 import { Link } from 'react-router-dom';
 import { UserContext } from "../App";
 import { removeFromSession } from "../common/session";
+import toast from "react-hot-toast";
 const UserNavigationPanel = () => {
     const { userAuth: { username }, setUserAuth } = useContext(UserContext);
 
     const signOutUser = () => {
         removeFromSession("user");
         setUserAuth({ access_token: null })
+        toast.success("Logged out successfully");
     }
 
     return (
