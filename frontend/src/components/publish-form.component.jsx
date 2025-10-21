@@ -88,7 +88,7 @@ const PublishForm = () => {
             // backend createBlog expects "id" to keep existing blog_id; also include blog_id for clarity
             ...(blog_id ? { id: blog_id, blog_id } : {})
         }
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-blog",
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/create-blog",
             blogObj, {
             headers: {
                 'Authorization': `Bearer ${access_token}`

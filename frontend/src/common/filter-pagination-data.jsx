@@ -4,7 +4,7 @@ export const filterpaginationData = async ({ create_new_arr = false, state, data
     if (state != null && !create_new_arr) {
         obj = { ...state, results: [...state.results, ...data], page: page }
     } else {
-        await axios.post(import.meta.env.VITE_SERVER_DOMAIN + countRoute, data_to_send)
+        await axios.post(import.meta.env.VITE_BACKEND_URL + countRoute, data_to_send)
             .then(({ data: { totalDocs } }) => {
                 obj = { results: data, page: 1, totalDocs }
             })

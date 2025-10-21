@@ -9,7 +9,7 @@ import CommentCard from './comment-card.component.jsx';
 export const fetchComments = async ({ skip = 0, blog_id, setParentCommentCountFun, comment_array = null }) => {
     let res;
 
-    await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog-comments", { blog_id, skip })
+    await axios.post(import.meta.env.VITE_BACKEND_URL + "/get-blog-comments", { blog_id, skip })
         .then(({ data }) => {
             // console.log(data)
             data.map(comment => {

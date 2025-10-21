@@ -19,7 +19,7 @@ const ManageBlogs = () => {
 
     // Fetch blogs from the server
     const getBlogs = () => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/user-written-blogs", {}, {
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/user-written-blogs", {}, {
             headers: {
                 Authorization: `Bearer ${access_token}`,
             },
@@ -38,7 +38,7 @@ const ManageBlogs = () => {
         const blog_id = blog.blog_id;
         target.setAttribute("disabled", true);
         // setDeletingBlogId(blog_id); // Set the blog as being deleted
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/delete-blog", { blog_id }, {
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/delete-blog", { blog_id }, {
             headers: {
                 Authorization: `Bearer ${access_token}`,
             },

@@ -35,7 +35,7 @@ const ProfilePage = () => {
   let [blogs, setBlogs] = useState(null);
   let { userAuth: { username } } = useContext(UserContext);
   const fetchUserProfile = () => {
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-profile", {
+    axios.post(import.meta.env.VITE_BACKEND_URL + "/get-profile", {
       username: profileId,
     })
       .then(({ data: user }) => {
@@ -50,7 +50,7 @@ const ProfilePage = () => {
   // const getBlogs = ({user_id})=>{
   //   user_id = user_id==undefined? BlogEditor.user_id : user_id;
 
-  //   axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", {
+  //   axios.post(import.meta.env.VITE_BACKEND_URL + "/search-blogs", {
   //author:user_id,})
   // }
   useEffect(() => {

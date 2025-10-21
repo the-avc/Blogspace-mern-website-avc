@@ -22,7 +22,7 @@ const CommentField = ({ action, index = undefined, replyingTo = undefined, setRe
             return toast.error("Comment cannot be empty");
         }
         // console.log("jdhdijhahdiu", replyingTo);
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/add-comment", {
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/add-comment", {
             comment,
             _id,
             blog_author,

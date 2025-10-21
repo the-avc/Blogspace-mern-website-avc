@@ -15,7 +15,7 @@ const HomePage = () => {
     const maxlimit = 5;
 
     const fetchLatestBlogs = (page = 1) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", { page })
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/latest-blogs", { page })
             .then(({ data }) => {
                 setBlog(data.blogs);
                 // console.log(data);
@@ -25,7 +25,7 @@ const HomePage = () => {
             })
     }
     const fetchTrendingBlogs = () => {
-        axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/trending-blogs")
+        axios.get(import.meta.env.VITE_BACKEND_URL + "/trending-blogs")
             .then(({ data }) => {
                 setTrendingBlog(data.blogs)
             })

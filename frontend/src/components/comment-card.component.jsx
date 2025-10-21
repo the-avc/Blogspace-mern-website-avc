@@ -25,7 +25,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
     const handleDeleteClick = (e) => {
         e.target.setAttribute("disabled", "true");
         // console.log("delete");
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/delete-comment", { _id }, {
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/delete-comment", { _id }, {
             headers: {
                 Authorization: `Bearer ${access_token}`
             }

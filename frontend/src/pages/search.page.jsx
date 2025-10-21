@@ -22,7 +22,7 @@ const SearchPage = () => {
             return;
         }
         // console.log("Searching for blogs with query:", query)
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { query, page })
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/search-blogs", { query, page })
             .then(({ data: { blogs } }) => {
                 setBlogs((prev) => {
                     if (create_new_arr) {
@@ -43,7 +43,7 @@ const SearchPage = () => {
             return;
         }
         // console.log("Searching for users with query:", query);
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-users", { query })
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/search-users", { query })
             .then(({ data: { users } }) => {
                 setUsers(users);
             })

@@ -30,7 +30,7 @@ const Editor = () => {
         if(!blog_id){
             return setLoading(false);
         }
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog",{
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/get-blog",{
             blog_id, mode:'edit'
         })
         .then(({data:{blog}})=>{
