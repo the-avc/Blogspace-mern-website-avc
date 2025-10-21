@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { getDay } from "../common/date.jsx";
 const BlogPost = ({ content, author }) => {
 
-    let { publishedAt, tags, title, des, banner, activity: { total_likes }, blog_id: id } = content;
+    let { publishedAt, updatedAt, tags, title, des, banner, activity: { total_likes }, blog_id: id } = content;
     let { fullname, profile_img, username } = author;
     return (
         <Link to={`/blogs/${id}`} className="flex gap-8 items-center border-b border-grey pb-5 mb-4">
@@ -13,7 +13,12 @@ const BlogPost = ({ content, author }) => {
                     />
                     <p className="line-clamp-1">{fullname} @ {username}</p>
                     <p className="min-w-fit">
-                        {getDay(publishedAt)}
+                        {
+                            updatedAt ?
+                                `Updated on ${getDay(updatedAt)}`
+                                :
+                                `Published on ${getDay(publishedAt)}`
+                        }
                     </p>
                 </div>
 

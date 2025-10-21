@@ -88,7 +88,13 @@ const BlogPage = () => {
                                 </div>
 
                                 <p className="text-dark-grey opacity-75 max-sm:mt-6 
-                        max-sm:ml-12 max-sm:pl-5">Published on: {getDay(publishedAt)}</p>
+                        max-sm:ml-12 max-sm:pl-5">{
+                                        blog.updatedAt && blog.updatedAt != blog.publishedAt ?
+                                            `Updated on: ${getDay(blog.updatedAt)}`
+                                            :
+                                            ""
+                                    } <br/>
+                                    Published on: {getDay(publishedAt)}</p>
                             </div>
                         </div>
 

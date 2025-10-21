@@ -100,7 +100,12 @@ const ManageBlogs = () => {
                                 <Link to={`/blogs/${blog.blog_id}`} className="blog-title mb-4 hover:underline">
                                     {blog.title}
                                 </Link>
-                                <p className="line-clamp-1">Published on: {getDay(blog.publishedAt)}</p>
+                                <p className="line-clamp-1">{
+                                    blog.updatedAt ?
+                                        `Updated on ${getDay(blog.updatedAt)}`
+                                        :
+                                        `Published on ${getDay(blog.publishedAt)}`
+                                    }</p>
                                 
                                 <div className="flex mt-3">
                                     <Link to={`/editor/${blog.blog_id}`} className="pr-4 py-2 underline">

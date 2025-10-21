@@ -10,7 +10,7 @@ export const getLatestBlogs = async (req, res) => {
     Blog.find({ draft: false })
         .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
         .sort({ "publishedAt": -1 })
-        .select("blog_id title des banner activity tags publishedAt -_id")
+        .select("blog_id title des banner activity tags publishedAt updatedAt -_id")
         .then(blogs => {
             return res.status(200).json({ blogs });
         })
@@ -23,7 +23,7 @@ export const getTrendingBlogs = async (req, res) => {
     Blog.find({ draft: false })
         .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
         .sort({ "activity.total_read": -1, "activity.total_likes": -1, "publishedAt": -1 })
-        .select("blog_id title publishedAt -_id")
+        .select("blog_id title publishedAt updatedAt -_id")
         .limit(5)
         .then(blogs => {
             return res.status(200).json({ blogs });
@@ -149,7 +149,7 @@ export const getBlog = async (req, res) => {
 
     Blog.findOneAndUpdate({ blog_id }, { $inc: { "activity.total_reads": incrementVal } })
         .populate("author", "personal_info.fullname personal_info.username personal_info.profile_img")
-        .select("title des content banner activity publishedAt blog_id tags")
+        .select("title des content banner activity publishedAt updatedAt blog_id tags")
         .then(blog => {
             if (!blog) {
                 return res.status(404).json({ error: 'Blog not found' });
@@ -175,7 +175,7 @@ export const getUserWrittenBlogs = async (req, res) => {
 
     Blog.find({ author: user_id })
         .sort({ "publishedAt": -1 })
-        .select("blog_id title des banner activity publishedAt -_id")
+        .select("blog_id title des banner activity publishedAt updatedAt -_id")
         .then(blogs => {
             return res.status(200).json({ blogs });
         })
