@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import User from '../Schema/User.js';
+import User from '../models/User.js';
 import { formatDatatoSend, generateUsername } from '../utils/auth.js';
 
 export const signup = async (req, res) => {

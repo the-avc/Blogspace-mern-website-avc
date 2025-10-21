@@ -1,5 +1,5 @@
-import Blog from '../Schema/Blog.js';
-import Notification from '../Schema/Notification.js';
+import Blog from '../models/Blog.js';
+import Notification from '../models/Notification.js';
 
 export const likeBlog = async (req, res) => {
     const user_id = req.user;

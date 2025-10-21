@@ -1,6 +1,6 @@
-import Blog from '../Schema/Blog.js';
-import Comment from '../Schema/Comment.js';
-import Notification from '../Schema/Notification.js';
+import Blog from '../models/Blog.js';
+import Comment from '../models/Comment.js';
+import Notification from '../models/Notification.js';
 
 export const addComment = async (req, res) => {
     const user_id = req.user;

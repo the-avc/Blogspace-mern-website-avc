@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { nanoid } from 'nanoid';
-import User from '../Schema/User.js';
+import User from '../models/User.js';
 
 export const formatDatatoSend = (user) => {
     const access_token = jwt.sign({ id: user._id }, process.env.SECRET_ACCESS_KEY);

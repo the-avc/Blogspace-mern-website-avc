@@ -1,7 +1,7 @@
-import Blog from '../Schema/Blog.js';
-import User from '../Schema/User.js';
-import Comment from '../Schema/Comment.js';
-import Notification from '../Schema/Notification.js';
+import Blog from '../models/Blog.js';
+import User from '../models/User.js';
+import Comment from '../models/Comment.js';
+import Notification from '../models/Notification.js';
 import { generateBlogId, formatTags } from '../utils/blog.js';
 
 export const getLatestBlogs = async (req, res) => {
